@@ -26,10 +26,11 @@ char *get_loc(char *command)
 			_strcpy(filepath, token);
 			_strcat(filepath, "/");
 			_strcat(filepath, command);
-			_strcat(filepath, "\0");
+			/*_strcat(filepath, "\0");*/
 
 			if (stat(filepath, &buf) == 0)
 			{
+				free(path);
 				free(aux_path);
 				return (filepath);
 			}
@@ -38,12 +39,14 @@ char *get_loc(char *command)
 				free(filepath);
 				token = strtok(NULL, ":");
 			}
-			free(aux_path);
 
-			if (stat(command, &buf) == 0)
-				return (command);
-			return (NULL);
 		}
-		return (NULL);
+		free(aux_path);
+		free(path);
+
 	}
+	if (stat(command, &buf) == 0)
+		return (command);
+	return (NULL);
+
 }
