@@ -2,35 +2,38 @@
 
 /**
  * cmd_exec - a function that executes a process using execve()
- * @arguments: the command and any arguments along with it
+ * @gtlc: the path of the command
+ * @args: the command and any arguments along with it
+ * @envp: the environment variables
  *
- * Return: 1
+ * Return: 0
  */
-int cmd_exec(char **arguments)
+int cmd_exec(char *gtlc, char *args[], char *envp[])
 {
-	pid_t cpid;
-	char *command = arguments[0];
+	pid_t pid = fork();
+	int status;
 
-	if (command[0] != '/' && command[0] != '.')
-		command = get_loc(command);
-
-	if (access(command, F_OK) == -1)
-	{
-		printf("no dir");
-	}
-	else
-	{
-		cpid = fork();
-		if (cpid == -1)
+		if (pid == -1)
 		{
-			printf("fork error");
-			return (-1);
+			perror("fork");
+			exit(1);
 		}
-		if (cpid == 0)
+		else if (pid == 0)
 		{
-			execve(command, arguments, environ);
+			if (execve(gtlc, args, envp) == -1)
+			{
+				perror("execve");
+				exit(1);
+			}
 		}
-	}
+		else
+		{
+			if (waitpid(pid, &status, 0) == -1)
+			{
+				perror("waitpid");
+				exit(1);
+			}
+		}
 
 	return (0);
 }

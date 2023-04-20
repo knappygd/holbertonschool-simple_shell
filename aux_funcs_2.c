@@ -30,3 +30,23 @@ char *_strdup(char *string)
 
 	return (duplicate);
 }
+
+/**
+ * _memset - fills the first n bytes of the memory area s with the byte c
+ * @s: memory area to be filled
+ * @c: the character with which to fill the memory area
+ * @n: number of bytes to be filled
+ */
+void *_memset(void *s, int c, int n)
+{
+	int index = 0;
+	char *memory = s, val = c;
+
+	while (index < n)
+	{
+		memory[index] = val;
+		index++;
+	}
+
+	return (memory);
+}

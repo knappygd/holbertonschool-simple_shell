@@ -7,9 +7,11 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 char *get_loc(char *);
-int cmd_exec(char **);
+int cmd_exec(char *gtlc, char *args[], char *envp[]);
+char **tokenizer(char *, int);
 
 /* functions from aux_funcs_1.c */
 int _strlen(char *);
@@ -20,6 +22,7 @@ char *_strcpy(char *, char *);
 
 /* functions from aux_funcs_2.c */
 char *_strdup(char *str);
+void *_memset(void *, int, int);
 
 /* variables */
 extern char **environ;

@@ -18,6 +18,7 @@ int _strlen(char *string)
 
 /**
  * _strcat - concatenates two strings and stores the result in the destination string * @dest: str1
+ * @dest: str1
  * @src: str2
  *
  * Return: dest

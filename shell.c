@@ -7,11 +7,10 @@
  */
 int main()
 {
-	char *prompt = "$ ";
-	char *input = NULL;
-	size_t len = 0;
-	size_t readline;
-	char **args;
+	char *prompt = "$ ", *input = NULL, *cmd, *gtlc;
+	size_t readline, len = 0;
+	char **tkzr;
+	char *args[2], *envp[2];
 
 	while (1)
 	{
@@ -20,9 +19,18 @@ int main()
 		if (readline == -1)
 			return (-1);
 
-		if (input[0] == '\n')
-			printf("hey");
+		tkzr = tokenizer(input, _strlen(input));
+		cmd = tkzr[0];
+		gtlc = get_loc(cmd);
 
-		cmd_exec(args);
+		args[0] = cmd;
+		args[1] = NULL;
+
+		envp[0] = _getenv("PATH");
+		envp[1] = NULL;
+
+		cmd_exec(gtlc, args, envp);
 	}
+
+	return (0);
 }
