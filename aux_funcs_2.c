@@ -36,6 +36,8 @@ char *_strdup(char *string)
  * @s: memory area to be filled
  * @c: the character with which to fill the memory area
  * @n: number of bytes to be filled
+ *
+ * Return: the c-filled memory area
  */
 void *_memset(void *s, int c, int n)
 {

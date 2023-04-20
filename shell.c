@@ -2,10 +2,10 @@
 
 /**
  * main - spawns a prompt each time a command is executed.
- * 		 it exits on a new line.
+ * it exits on a new line.
  * Return: 0 on success, otherwise -1
  */
-int main()
+int main(void)
 {
 	char *prompt = "$ ", *input = NULL, *cmd, *gtlc;
 	size_t readline, len = 0;
@@ -23,13 +23,20 @@ int main()
 		cmd = tkzr[0];
 		gtlc = get_loc(cmd);
 
-		args[0] = cmd;
-		args[1] = NULL;
+		if (cmd[0] == '/')
+		{
+			printf("shell: %s: Is a directory\n", cmd);
+		}
+		else
+		{
+			args[0] = cmd;
+			args[1] = NULL;
 
-		envp[0] = _getenv("PATH");
-		envp[1] = NULL;
+			envp[0] = _getenv("PATH");
+			envp[1] = NULL;
 
-		cmd_exec(gtlc, args, envp);
+			cmd_exec(gtlc, args, envp);
+		}
 	}
 
 	return (0);

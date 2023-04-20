@@ -17,7 +17,8 @@ int _strlen(char *string)
 }
 
 /**
- * _strcat - concatenates two strings and stores the result in the destination string * @dest: str1
+ * _strcat - concatenates two strings and stores the result
+ * in the destination string
  * @dest: str1
  * @src: str2
  *
@@ -25,23 +26,23 @@ int _strlen(char *string)
  */
 char *_strcat(char *dest, char *src)
 {
-        int i = 0, n = 0;
+	int i = 0, n = 0;
 
-        while (dest[i] != '\0')
-        {
-                i++;
-        }
+	while (dest[i] != '\0')
+	{
+		i++;
+	}
 
-        while (src[n] != '\0')
-        {
-                dest[i] = src[n];
-                i++;
-                n++;
-        }
+	while (src[n] != '\0')
+	{
+		dest[i] = src[n];
+		i++;
+		n++;
+	}
 
-        dest[i] = '\0';
+	dest[i] = '\0';
 
-        return (dest);
+	return (dest);
 }
 
 /**

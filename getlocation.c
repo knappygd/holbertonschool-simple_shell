@@ -48,5 +48,4 @@ char *get_loc(char *command)
 	if (stat(command, &buf) == 0)
 		return (command);
 	return (NULL);
-
 }
