@@ -45,6 +45,8 @@ int main(void)
 			free(tkzr[i]);
 		}
 		free(tkzr);
+
+		free(gtlc);
 	}
 	free(input);
 
