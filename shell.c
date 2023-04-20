@@ -39,6 +39,12 @@ int main(void)
 
 			cmd_exec(gtlc, args, envp);
 		}
+
+		for (int i = 0; tkzr[i] != NULL; i++)
+		{
+			free(tkzr[i]);
+		}
+		free(tkzr);
 	}
 	free(input);
 
