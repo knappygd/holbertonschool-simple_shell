@@ -18,7 +18,6 @@ int main(void)
 		readline = getline(&input, &len, stdin);
 		if (readline == -1)
 		{
-			free(input);
 			break;
 		}
 
@@ -41,6 +40,7 @@ int main(void)
 			cmd_exec(gtlc, args, envp);
 		}
 	}
+	free(input);
 
 	return (0);
 }
