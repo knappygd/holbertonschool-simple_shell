@@ -17,7 +17,10 @@ int main(void)
 		printf("%s", prompt);
 		readline = getline(&input, &len, stdin);
 		if (readline == -1)
-			return (-1);
+		{
+			free(input);
+			break;
+		}
 
 		tkzr = tokenizer(input, _strlen(input));
 		cmd = tkzr[0];

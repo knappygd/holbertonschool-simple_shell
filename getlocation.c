@@ -45,6 +45,8 @@ char *get_loc(char *command)
 		free(path);
 
 	}
+	free(path);
+
 	if (stat(command, &buf) == 0)
 		return (command);
 	return (NULL);
