@@ -1,16 +1,27 @@
 #include "shell.h"
 
 /**
- * main - spawns a prompt each time a command is executed.
- * it exits on a new line.
- * Return: 0 on success, otherwise -1
+ * This file contains the entry function to execute the shell.
+ * Here is the prompt spawn point and where input checks are made.
+ * A full cycle consists of receiving input, tokenizing it,
+ * getting the location of the command and passing the
+ * required arguments to the function required to execute the command.
+ * After the operation has been completed, the prompt spawns again;
+ * in case it was unsuccessful, it may display the corresponding
+ * error message.
+ */
+
+/**
+ * main - Spawns a prompt to receive user input and performs the
+ * required actions upon the input.
+ * This is the shell entry function.
+ *
+ * Return: 0 if successful.
  */
 int main(void)
 {
-	char *prompt = "$ ", *input = NULL, *cmd, *gtlc;
+	char *prompt = "$ ", *input = NULL, *cmd, *path, *envp[2], **args;
 	size_t readline, len = 0;
-	char **tkzr;
-	char *args[2], *envp[2];
 
 	while (1)
 	{
@@ -18,12 +29,20 @@ int main(void)
 		readline = getline(&input, &len, stdin);
 		if (readline == -1)
 		{
+			printf("\n");
 			break;
 		}
 
-		tkzr = tokenizer(input, _strlen(input));
-		cmd = tkzr[0];
-		gtlc = get_loc(cmd);
+		input[strcspn(input, "\n")] = '\0';
+
+		if (strcmp(input, "") == 0)
+		{
+			continue;
+		}
+
+		args = tokenizer(input, readline);
+		cmd = args[0];
+		path = get_loc(cmd);
 
 		if (cmd[0] == '/')
 		{
@@ -31,22 +50,18 @@ int main(void)
 		}
 		else
 		{
-			args[0] = cmd;
-			args[1] = NULL;
-
 			envp[0] = _getenv("PATH");
 			envp[1] = NULL;
 
-			cmd_exec(gtlc, args, envp);
+			cmd_exec(path, args, envp);
 		}
 
-		for (int i = 0; tkzr[i] != NULL; i++)
+		for (int i = 0; args[i] != NULL; i++)
 		{
-			free(tkzr[i]);
+			free(args[i]);
 		}
-		free(tkzr);
-
-		free(gtlc);
+		free(args);
+		free(path);
 	}
 	free(input);
 

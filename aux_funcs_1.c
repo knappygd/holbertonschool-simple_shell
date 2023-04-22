@@ -1,10 +1,25 @@
 #include "shell.h"
 
 /**
- * _strlen - returns the length of a string
- * @string: the string to count
+ * This file contains function definitions for any required usage.
+ * This file is limited to having up to 5 function definitions
+ * in order for it to be Betty-compliant.
+ * More functions implemented in other files may not be present here;
+ * refer to aux_funcs_2.c instead.
  *
- * Return: number of characters
+ * Functions:
+ *  - _strlen: Returns the length of a string.
+ *  - _strcat: Concatenates two strings and returns the result.
+ *  - _getenv: Retrieves the value of an environment variable.
+ *  - _strncmp: Compares two strings up to n bytes.
+ *  - _strcpy: Copies a string from one location to another.
+ */
+
+/**
+ * _strlen - Returns the length of a string.
+ * @string: The string from which to count the characters.
+ *
+ * Return: The length of the string.
  */
 int _strlen(char *string)
 {
@@ -17,23 +32,22 @@ int _strlen(char *string)
 }
 
 /**
- * _strcat - concatenates two strings and stores the result
- * in the destination string
- * @dest: str1
- * @src: str2
+ * _strcat - Concatenates two strings and returns the result.
+ * @dest: The string to which append src.
+ * @src: The string appended to dest.
  *
- * Return: dest
+ * Return: dest; the concatenated string.
  */
 char *_strcat(char *dest, char *src)
 {
 	int i = 0, n = 0;
 
-	while (dest[i] != '\0')
+	while (dest[i])
 	{
 		i++;
 	}
 
-	while (src[n] != '\0')
+	while (src[n])
 	{
 		dest[i] = src[n];
 		i++;
@@ -46,32 +60,34 @@ char *_strcat(char *dest, char *src)
 }
 
 /**
- * _getenv - gets the environment variable from the PATH. similat to getenv()
- * @envr: environment variable to get
+ * _getenv - Retrieves the value of an environment variable.
+ * @envr: Environment variable to retrieve.
  *
- * Return: a pointer to the environment variable
+ * Return: A pointer to the environment variable.
  */
 char *_getenv(char *envr)
 {
-	int index = 0, len = _strlen(envr);
+	int i = 0, len = _strlen(envr);
 
-	while (environ[index])
+	while (environ[i])
 	{
-		if (_strncmp(envr, environ[index], len) == 0)
-			return (environ[index] + len + 1);
-		index++;
+		if (_strncmp(envr, environ[i], len) == 0)
+			return (environ[i] + len + 1);
+		i++;
 	}
 
 	return (NULL);
 }
 
 /**
- * _strncmp - compares n bytes between two strings
- * @str1: string to compare
- * @str2: string to compare
- * @n: bytes to compare
+ * _strncmp - Compares two strings up to n bytes.
+ * @str1: A string to compare to str2.
+ * @str2: A string to compare to str1.
+ * @n: The first n bytes to compare.
+ * If n = strlen(str), considering both strings have the same length,
+ * then it compares the whole string.
  *
- * Return: the difference between strings
+ * Return: The difference between strings.
  */
 int _strncmp(char *str1, char *str2, int n)
 {
@@ -91,11 +107,11 @@ int _strncmp(char *str1, char *str2, int n)
 }
 
 /**
- * _strcpy - copies the source string to the destination string
- * @dest: destination string
- * @src: source string
+ * _strcpy - Copies a string from one location to another.
+ * @dest: Location to which copy src to.
+ * @src: The string to be copied to dest.
  *
- * Return: copied string
+ * Return: The location of the copied string.
  */
 char *_strcpy(char *dest, char *src)
 {

@@ -1,10 +1,20 @@
 #include "shell.h"
 
 /**
- * tokenizer - generates tokens from an input
- * @input: the string from which to tokenize
+ * This file contains the tokenizer() function, responsible for
+ * splitting the input into tokens and storing them into an array.
+ * It is useful for identifying the command and its arguments, if any,
+ * in subsequent processes.
+ * It makes use of the strtok() function.
+ */
+
+/**
+ * tokenizer - Generates tokens from an input and stores them
+ * into an array of pointers to the tokens.
+ * @input: The string to split.
+ * @readchars: The number of characters that the input has.
  *
- * Return: an array of tokens
+ * Return: An array of pointers to the tokens.
  */
 char **tokenizer(char *input, int readchars)
 {

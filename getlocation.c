@@ -1,10 +1,18 @@
 #include "shell.h"
 
 /**
- * get_loc - locate the executable file of a command and return the path
- * @command: the command to which attempt to locate the executable for
+ * This file contains the get_loc() function, responsible
+ * for locating the executable file of the command received.
+ * This allows the user to be able to only type the command name
+ * instead of having to pass the path to the excutable.
+ */
+
+/**
+ * get_loc - Locates the executable file of a command
+ * and return the path to it if found.
+ * @command: The command to which attempt to locate the executable for.
  *
- * Return: the path to the executable
+ * Return: Path to the executable.
  */
 char *get_loc(char *command)
 {
@@ -26,7 +34,6 @@ char *get_loc(char *command)
 			_strcpy(filepath, token);
 			_strcat(filepath, "/");
 			_strcat(filepath, command);
-			/*_strcat(filepath, "\0");*/
 
 			if (stat(filepath, &buf) == 0)
 			{
@@ -37,17 +44,17 @@ char *get_loc(char *command)
 			else
 			{
 				free(filepath);
+				filepath = NULL;
 				token = strtok(NULL, ":");
 			}
-
 		}
 		free(aux_path);
 		free(path);
-
 	}
-	free(path);
+	/* free(path); */
 
 	if (stat(command, &buf) == 0)
 		return (command);
+
 	return (NULL);
 }
