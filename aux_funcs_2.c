@@ -1,8 +1,8 @@
 #include "shell.h"
 
-/**
+/*
  * This file contains function definitions for any required usage.
- * This file is limited to having up to 5 function definitions
+ * This file is limited to having up to only 5 function definitions
  * in order for it to be Betty-compliant.
  * More functions implemented in other files may not be present here;
  * refer to aux_funcs_2.c instead.
@@ -10,6 +10,8 @@
  * Functions:
  *  - _strdup: Copies a string and stores it in a newly allocated address.
  *  - _memset: Fills the first n bytes of a memory area with determined bytes.
+ *  - _strcspn: Returns the length of a string up to character c.
+ *  - _strcmp: Compares two strings.
  */
 
 /**
@@ -32,11 +34,8 @@ char *_strdup(char *string)
 	if (!duplicate)
 		return (NULL);
 
-	while (string[i])
-	{
+	for (i = 0; string[i]; i++)
 		duplicate[i] = string[i];
-		i++;
-	}
 
 	return (duplicate);
 }
@@ -54,11 +53,46 @@ void *_memset(void *s, int c, int n)
 	int i = 0;
 	char *memory = s, val = c;
 
-	while (i < n)
-	{
+	for (i = 0; i < n; i++)
 		memory[i] = val;
-		i++;
-	}
 
 	return (memory);
+}
+
+/**
+ * _strcspn - Returns the length of a string up to character c.
+ * @string: The string to count.
+ * @c: The character for which count the string up to.
+ *
+ * Return: The length of the string up to c.
+ */
+int _strcspn(char *string, char c)
+{
+	int i;
+
+	for (i = 0; string[i]; i++)
+		if (string[i] == c)
+			return (i);
+
+	return (-1);
+}
+
+/* === UNUSED === */
+
+/**
+ * _strcmp - Compares two strings.
+ * @str1: A string to compare to str2.
+ * @str2: A string to compare to str1.
+ *
+ * Return: The difference between both strings in ASCII values.
+ */
+int _strcmp(char *str1, char *str2)
+{
+	int i;
+
+	for (i = 0; str1[i] && str2[i]; i++)
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+
+	return (0);
 }
