@@ -29,17 +29,17 @@
  *  - err_constr: errorhandler.c
  */
 char *get_loc(char *command);
-int cmd_exec(char *input);
+int cmd_exec(char *path, char **args, char *envp[]);
 char **tokenizer(char *input, int readchars);
-char *err_constr(int flag, char *cmd, char *shellname);
+char *err_constr(int flag, int exit, char *cmd, char *shellname);
 
 /*
  * Input handling.
  *
  * The definitions can be found at inputhandler.c
  */
-int input_flags(char *input);
-int handle(char *input, char *shellname);
+int input_flags(char *input, char *shellname);
+int handle(int flag, char *path, char **args, char *envp[], char *shellname);
 
 /*
  * Built-in commands functions.
