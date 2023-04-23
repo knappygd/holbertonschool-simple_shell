@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/**
+/*
  * This file contains the get_loc() function, responsible
  * for locating the executable file of the command received.
  * This allows the user to be able to only type the command name
@@ -51,7 +51,6 @@ char *get_loc(char *command)
 		free(aux_path);
 		free(path);
 	}
-	/* free(path); */
 
 	if (stat(command, &buf) == 0)
 		return (command);
