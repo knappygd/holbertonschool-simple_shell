@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/**
+/*
  * This file contains the function implementations
  * required to execute built-in commands.
  * These are commands built into the shell itself,
@@ -16,9 +16,13 @@
  * change_dir - Changes to a newly specified working directory,
  * using the chdir() function.
  * @dir: A pointer to the directory to change.
- *
- * Return: 0
  */
-/* int change_dir(char *dir)
+void change_dir(char *dir)
 {
-} */
+    int ret = chdir(dir);
+
+    if (ret == -1)
+    {
+        perror("chdir");
+    }
+}
