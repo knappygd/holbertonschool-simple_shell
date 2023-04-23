@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/**
+/*
  * This file contains the cmd_exec() function, responsible for
  * executing the command and any arguments it may have.
  * It forks a pre-existing process and assigns the forked process,
@@ -17,22 +17,41 @@
  *
  * Return: 0 if successful.
  */
-int cmd_exec(char *gtlc, char *args[], char *envp[])
+int cmd_exec(char *input)
 {
 	pid_t pid = fork();
-	int status;
+	int status, flag, len = _strlen(input) + 1;
+	char *cmd, **args, *path;
+	char *envp[] = {_getenv("PATH"), NULL};
 
 	if (pid == -1)
 	{
 		perror("fork");
-		exit(1);
+		flag = -4;
 	}
 	else if (pid == 0)
 	{
-		if (execve(gtlc, args, envp) == -1)
+		args = tokenizer(input, len);
+		if (!args)
+			flag = -3;
+
+		cmd = args[0];
+
+		/* Before calling get_loc it should check if it is a built-in */
+		path = get_loc(cmd);
+		if (!path)
+			flag = -1;
+		else
+			flag = 1;
+
+		printf("path: %s\n", path);
+		for (int j = 0; args[j]; j++)
+			printf("args[%d]: %s\n", j, args[j]);
+
+		if (execve(path, args, envp) == -1)
 		{
 			perror("execve");
-			exit(1);
+			flag = -5;
 		}
 	}
 	else
@@ -40,9 +59,9 @@ int cmd_exec(char *gtlc, char *args[], char *envp[])
 		if (waitpid(pid, &status, 0) == -1)
 		{
 			perror("waitpid");
-			exit(1);
+			flag = -6;
 		}
 	}
 
-	return (0);
+	return (flag);
 }
