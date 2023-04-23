@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/**
+/*
  * This file contains the entry function to execute the shell.
  * Here is the prompt spawn point and where input checks are made.
  * A full cycle consists of receiving input, tokenizing it,
@@ -18,50 +18,31 @@
  *
  * Return: 0 if successful.
  */
-int main(void)
+int main(int argc, char *argv[])
 {
-	char *prompt = "$ ", *input = NULL, *cmd, *path, *envp[2], **args;
-	size_t readline, len = 0;
+	char *prompt = "$ ", *input = NULL, *path, *cmd;
+	char *envp[] = {_getenv("PATH"), NULL}, **args;
+	int ret;
+	size_t rl, len = 0;
+
+	(void)argc;
 
 	while (1)
 	{
 		printf("%s", prompt);
-		readline = getline(&input, &len, stdin);
-		if (readline == -1)
+		rl = getline(&input, &len, stdin);
+		if (rl == -1)
 		{
 			printf("\n");
 			break;
 		}
 
-		input[strcspn(input, "\n")] = '\0';
+		input[_strcspn(input, '\n')] = '\0';
 
-		if (strcmp(input, "") == 0)
-		{
+		if (*input == '\0')
 			continue;
-		}
 
-		args = tokenizer(input, readline);
-		cmd = args[0];
-		path = get_loc(cmd);
-
-		if (cmd[0] == '/')
-		{
-			printf("shell: %s: Is a directory\n", cmd);
-		}
-		else
-		{
-			envp[0] = _getenv("PATH");
-			envp[1] = NULL;
-
-			cmd_exec(path, args, envp);
-		}
-
-		for (int i = 0; args[i] != NULL; i++)
-		{
-			free(args[i]);
-		}
-		free(args);
-		free(path);
+		handle(input, argv[0]);
 	}
 	free(input);
 
