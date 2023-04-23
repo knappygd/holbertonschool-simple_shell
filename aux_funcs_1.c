@@ -1,8 +1,8 @@
 #include "shell.h"
 
-/**
+/*
  * This file contains function definitions for any required usage.
- * This file is limited to having up to 5 function definitions
+ * This file is limited to having up to only 5 function definitions
  * in order for it to be Betty-compliant.
  * More functions implemented in other files may not be present here;
  * refer to aux_funcs_2.c instead.
@@ -43,9 +43,7 @@ char *_strcat(char *dest, char *src)
 	int i = 0, n = 0;
 
 	while (dest[i])
-	{
 		i++;
-	}
 
 	while (src[n])
 	{
@@ -67,14 +65,11 @@ char *_strcat(char *dest, char *src)
  */
 char *_getenv(char *envr)
 {
-	int i = 0, len = _strlen(envr);
+	int i, len = _strlen(envr);
 
-	while (environ[i])
-	{
+	for (i = 0; environ[i]; i++)
 		if (_strncmp(envr, environ[i], len) == 0)
 			return (environ[i] + len + 1);
-		i++;
-	}
 
 	return (NULL);
 }
@@ -91,15 +86,14 @@ char *_getenv(char *envr)
  */
 int _strncmp(char *str1, char *str2, int n)
 {
-	int index = 0;
+	int index;
 
-	while (index < n && str1[index] && str2[index])
+	for (index = 0; index < n && str1[index] && str2[index]; index++)
 	{
 		if (str1[index] > str2[index])
 			return (str1[index] - str2[index]);
 		else if (str1[index] < str2[index])
 			return (str1[index] - str2[index]);
-		index++;
 	}
 
 	if (index == n)
@@ -115,13 +109,10 @@ int _strncmp(char *str1, char *str2, int n)
  */
 char *_strcpy(char *dest, char *src)
 {
-	int i = 0;
+	int i;
 
-	while (src[i])
-	{
+	for (i = 0; src[i]; i++)
 		dest[i] = src[i];
-		i++;
-	}
 
 	dest[i] = '\0';
 
