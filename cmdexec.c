@@ -17,12 +17,10 @@
  *
  * Return: 0 if successful.
  */
-int cmd_exec(char *input)
+int cmd_exec(char *path, char **args, char *envp[])
 {
 	pid_t pid = fork();
-	int status, flag, len = _strlen(input) + 1;
-	char *cmd, **args, *path;
-	char *envp[] = {_getenv("PATH"), NULL};
+	int status, flag = 0;
 
 	if (pid == -1)
 	{
@@ -31,23 +29,6 @@ int cmd_exec(char *input)
 	}
 	else if (pid == 0)
 	{
-		args = tokenizer(input, len);
-		if (!args)
-			flag = -3;
-
-		cmd = args[0];
-
-		/* Before calling get_loc it should check if it is a built-in */
-		path = get_loc(cmd);
-		if (!path)
-			flag = -1;
-		else
-			flag = 1;
-
-		printf("path: %s\n", path);
-		for (int j = 0; args[j]; j++)
-			printf("args[%d]: %s\n", j, args[j]);
-
 		if (execve(path, args, envp) == -1)
 		{
 			perror("execve");
@@ -61,6 +42,9 @@ int cmd_exec(char *input)
 			perror("waitpid");
 			flag = -6;
 		}
+
+		if (WIFEXITED(status))
+			return (WEXITSTATUS(status));
 	}
 
 	return (flag);
