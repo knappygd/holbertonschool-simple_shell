@@ -22,18 +22,21 @@ int main(int argc, char *argv[])
 {
 	char *prompt = "$ ", *input = NULL, *path, *cmd;
 	char *envp[] = {_getenv("PATH"), NULL}, **args;
-	int ret;
+	int ret = 0;
 	size_t rl, len = 0;
 
 	(void)argc;
 
 	while (1)
 	{
-		printf("%s", prompt);
+		if (isatty(STDIN_FILENO))
+			printf("%s", prompt);
+
 		rl = getline(&input, &len, stdin);
 		if (rl == -1)
 		{
-			printf("\n");
+			if (isatty(STDIN_FILENO))
+				printf("\n");
 			break;
 		}
 
@@ -42,9 +45,9 @@ int main(int argc, char *argv[])
 		if (*input == '\0')
 			continue;
 
-		handle(input, argv[0]);
+		ret = input_flags(input, argv[0]);
 	}
 	free(input);
 
-	return (0);
+	return (ret);
 }
