@@ -1,11 +1,15 @@
 #include "shell.h"
 
-/*
+/**
  * This file contains the tokenizer() function, responsible for
  * splitting the input into tokens and storing them into an array.
  * It is useful for identifying the command and its arguments, if any,
  * in subsequent processes.
  * It makes use of the strtok() function.
+ * Tokenizer should be used with the input ONLY once, as it is a
+ * highly destructive function and the input can't be recovered.
+ * In case it needs to be used more than once, it's recommended
+ * to tokenize a duplicate of the input.
  */
 
 /**
