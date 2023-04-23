@@ -28,9 +28,9 @@
  *
  * Return: The flag containing its value.
  */
-int input_flags(char *input)
+int input_flags(char *input, char *shellname)
 {
-	int i, len = _strlen(input) + 1, flag = 0;
+	int i, handle_ret = 0, len = _strlen(input) + 1, flag = 0;
 	char *cmd, **args, *path;
 	char *envp[] = {_getenv("PATH"), NULL};
 
@@ -47,6 +47,8 @@ int input_flags(char *input)
 	else
 		flag = 1;
 
+	handle_ret = handle(flag, path, args, envp, shellname);
+
 	for (int i = 0; args[i]; i++)
 		free(args[i]);
 	free(args);
@@ -54,13 +56,13 @@ int input_flags(char *input)
 
 	/* printf("%d", flag); */
 
-	return (flag);
+	return (handle_ret);
 }
 
-int handle(char *input, char *shellname)
+int handle(int flag, char *path, char **args, char *envp[], char *shellname)
 {
-	int flag = input_flags(input), len = _strlen(input) + 1;
 	char *error_msg;
+	int exit = 0;
 
 	/* Handle success flags */
 	if (flag > 0)
@@ -68,7 +70,7 @@ int handle(char *input, char *shellname)
 		switch (flag)
 		{
 		case 1:
-			cmd_exec(input);
+			exit = cmd_exec(path, args, envp);
 			break;
 		default:
 			break;
@@ -80,10 +82,8 @@ int handle(char *input, char *shellname)
 		switch (flag)
 		{
 		case -1:
-			/* args = tokenizer(input, len);
-			if (!args)
-				flag = -3; */
-			/* error_msg = err_constr(-1, args[0], shellname); */
+			exit = 1;
+			error_msg = err_constr(-1, exit, args[0], shellname);
 			printf("%s\n", error_msg);
 			free(error_msg);
 			break;
@@ -98,18 +98,10 @@ int handle(char *input, char *shellname)
 		}
 	}
 
-	return (0);
+	return (exit);
 }
 
 /*
-The thing to fix is that to print the error message
-i need to pass the command name to err_constr, which is args[0].
-however args is the tokenizer, and is already called in flag_raiser.
-calling tokenizer again in handler fucks up the args.
-the solution would be to pass args to handler but what do i do in shell.c lol.
-the other approach is to make an extra function to call handle from shell.c,
-which only takes input and passes it to handle.
-anyway that's to fix.
 other things to do is fix mv, make more builtin funcs and echo $? outputs 0
 all the time, even after misusing a command, where it should be 1.
 */
