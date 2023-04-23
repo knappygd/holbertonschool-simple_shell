@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/**
+/*
  * This file contains the tokenizer() function, responsible for
  * splitting the input into tokens and storing them into an array.
  * It is useful for identifying the command and its arguments, if any,
@@ -18,11 +18,15 @@
  */
 char **tokenizer(char *input, int readchars)
 {
-	char *token, *token_aux, *input_aux, *delim = " \n";
-	char **token_arr;
+	char *token, *token_aux, *input_aux, *delim = " \n", **token_arr;
 	int tokens = 0, index = 0;
 
+	if (!input)
+		return (NULL);
+
 	input_aux = malloc(sizeof(char) * readchars);
+	if (!input_aux)
+		return (NULL);
 	_memset(input_aux, 0, sizeof(char) * (readchars + 1));
 	_strcpy(input_aux, input);
 
@@ -40,6 +44,8 @@ char **tokenizer(char *input, int readchars)
 	while (token)
 	{
 		token_arr[index] = malloc(sizeof(char) * (_strlen(token) + 1));
+		if (!token_arr[index])
+			return (NULL);
 		_strcpy(token_arr[index], token);
 		token = strtok(NULL, delim);
 		index++;
