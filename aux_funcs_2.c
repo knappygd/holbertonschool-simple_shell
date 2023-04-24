@@ -12,6 +12,7 @@
  *  - _memset: Fills the first n bytes of a memory area with determined bytes.
  *  - _strcspn: Returns the length of a string up to character c.
  *  - _strcmp: Compares two strings.
+ *  - atoi4exit: Converts a positive integer. Not similar to atoi.
  */
 
 /**
@@ -95,4 +96,32 @@ int _strcmp(char *str1, char *str2)
 			return (str1[i] - str2[i]);
 
 	return (0);
+}
+
+/**
+ * atoi4exit - Converts a positive integer. Not similar to atoi.
+ * @str: The number to convert as a string.
+ *
+ * Return: 0 if no argument is passed or -1 if it's not positive or integer,
+ * else the converted number.
+ */
+int atoi4exit(char *str)
+{
+	int result = 0;
+
+	if (!str)
+		result = 0;
+
+	while (*str)
+	{
+		if (*str < '0' || *str > '9' || str[0] == '-')
+		{
+			result = -1;
+			break;
+		}
+
+		result = (result * 10) + (*str - '0');
+		str++;
+	}
+	return result;
 }
