@@ -31,7 +31,8 @@
 char *get_loc(char *command);
 int cmd_exec(char *path, char **args, char *envp[]);
 char **tokenizer(char *input, int readchars);
-char *err_constr(int flag, int exit, char *cmd, char *shellname);
+int err_constr(int flag, int exit, char **args, char *shellname);
+int builtin_handler(char **args, char *shellname);
 
 /*
  * Input handling.
@@ -46,7 +47,8 @@ int handle(int flag, char *path, char **args, char *envp[], char *shellname);
  *
  * The definitions of these functions can be found at builtin.c
  */
-void change_dir(char *dir);
+int change_dir(char *dir);
+void exit_sh(int exit_c);
 
 /* Functions from aux_funcs_1.c */
 int _strlen(char *string);
@@ -60,6 +62,7 @@ char *_strdup(char *string);
 void *_memset(void *s, int c, int n);
 int _strcspn(char *string, char c);
 int _strcmp(char *str1, char *str2);
+int atoi4exit(char *str);
 
 /* Variables */
 extern char **environ;
