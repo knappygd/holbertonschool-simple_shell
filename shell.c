@@ -7,9 +7,9 @@
  */
 int main(void)
 {
-	char *prompt = "$ ", *input = NULL, *cmd, *gtlc;
+	char *prompt = "$ ", *input = NULL, *cmd, *cmdpath;
 	size_t readline, len = 0;
-	char **tkzr;
+	char **tokens;
 	char *args[2], *envp[2];
 
 	while (1)
@@ -21,9 +21,9 @@ int main(void)
 			break;
 		}
 
-		tkzr = tokenizer(input, _strlen(input));
-		cmd = tkzr[0];
-		gtlc = get_loc(cmd);
+		tokens = tokenizer(input, _strlen(input));
+		cmd = tokens[0];
+		cmdpath = get_loc(cmd);
 
 		if (cmd[0] == '/')
 		{
@@ -31,22 +31,18 @@ int main(void)
 		}
 		else
 		{
-			args[0] = cmd;
-			args[1] = NULL;
-
 			envp[0] = _getenv("PATH");
 			envp[1] = NULL;
 
-			cmd_exec(gtlc, args, envp);
+			cmd_exec(cmdpath, tokens, envp);
 		}
 
-		for (int i = 0; tkzr[i] != NULL; i++)
+		for (int i = 0; tokens[i] != NULL; i++)
 		{
-			free(tkzr[i]);
+			free(tokens[i]);
 		}
-		free(tkzr);
-
-		free(gtlc);
+		free(tokens);
+		free(cmdpath);
 	}
 	free(input);
 

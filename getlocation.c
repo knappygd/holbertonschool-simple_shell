@@ -26,7 +26,6 @@ char *get_loc(char *command)
 			_strcpy(filepath, token);
 			_strcat(filepath, "/");
 			_strcat(filepath, command);
-			/*_strcat(filepath, "\0");*/
 
 			if (stat(filepath, &buf) == 0)
 			{

@@ -2,16 +2,20 @@
 
 /**
  * cmd_exec - a function that executes a process using execve()
- * @gtlc: the path of the command
+ * @cmdpath: the path of the command
  * @args: the command and any arguments along with it
  * @envp: the environment variables
  *
  * Return: 0
  */
-int cmd_exec(char *gtlc, char *args[], char *envp[])
+int cmd_exec(char *cmdpath, char *args[], char *envp[])
 {
 	pid_t pid = fork();
 	int status;
+
+	/* printf("cmdpath: %s\n", cmdpath);
+	printf("args: %s, %s, %s, %s\n", args[0], args[1], args[2], args[3]);
+	printf("envp: %s, %s\n", envp[0], envp[1]); */
 
 		if (pid == -1)
 		{
@@ -20,7 +24,7 @@ int cmd_exec(char *gtlc, char *args[], char *envp[])
 		}
 		else if (pid == 0)
 		{
-			if (execve(gtlc, args, envp) == -1)
+			if (execve(cmdpath, args, envp) == -1)
 			{
 				perror("execve");
 				exit(1);
