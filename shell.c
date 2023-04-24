@@ -48,6 +48,5 @@ int main(int argc, char *argv[])
 		ret = input_flags(input, argv[0]);
 	}
 	free(input);
-
 	return (ret);
 }
