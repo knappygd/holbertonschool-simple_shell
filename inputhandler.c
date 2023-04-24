@@ -11,7 +11,8 @@
  * and raise any corresponding error messages.
  *
  * SUCCESS FLAG CODES:
- * 1: Command found
+ * 1: Command found and is executable
+ * 2: Command found and is built-in
  *
  * FAILURE FLAG CODES:
  * -1: Command not found (neither executable nor built-in)
@@ -20,6 +21,7 @@
  * -4: fork() failure
  * -5: execve() failure
  * -6: waitpid() failure
+ * -7: exit status negative or NaN
  */
 
 /**
@@ -30,41 +32,47 @@
  */
 int input_flags(char *input, char *shellname)
 {
-	int i, handle_ret = 0, len = _strlen(input) + 1, flag = 0;
-	char *cmd, **args, *path;
-	char *envp[] = {_getenv("PATH"), NULL};
+	int i, handle_ret = 0, flag = 0;
+	char *cmd, **args, *path, *envp[] = {_getenv("PATH"), NULL};
 
-	args = tokenizer(input, len);
+	args = tokenizer(input, _strlen(input) + 1);
 	if (!args)
 		flag = -3;
 
 	cmd = args[0];
 
 	/* Before calling get_loc it should check if it is a built-in */
-	path = get_loc(cmd);
-	if (!path)
-		flag = -1;
+	if (_strcmp(cmd, "cd") == 0 || _strcmp(cmd, "exit") == 0)
+	{
+		flag = 2;
+		handle_ret = handle(flag, NULL, args, NULL, shellname);
+	}
 	else
-		flag = 1;
+	{
+		path = get_loc(cmd);
+		if (!path)
+			flag = -1;
+		else
+			flag = 1;
 
-	handle_ret = handle(flag, path, args, envp, shellname);
+		handle_ret = handle(flag, path, args, envp, shellname);
 
-	for (int i = 0; args[i]; i++)
+		free(path);
+	}
+
+	for (i = 0; args[i]; i++)
+	{
 		free(args[i]);
+	}
 	free(args);
-	free(path);
-
-	/* printf("%d", flag); */
 
 	return (handle_ret);
 }
 
 int handle(int flag, char *path, char **args, char *envp[], char *shellname)
 {
-	char *error_msg;
 	int exit = 0;
 
-	/* Handle success flags */
 	if (flag > 0)
 	{
 		switch (flag)
@@ -72,20 +80,20 @@ int handle(int flag, char *path, char **args, char *envp[], char *shellname)
 		case 1:
 			exit = cmd_exec(path, args, envp);
 			break;
+		case 2:
+			exit = builtin_handler(args, shellname);
+			break;
 		default:
 			break;
 		}
 	}
-	/* Handle failure flags */
 	else if (flag < 0)
 	{
 		switch (flag)
 		{
 		case -1:
 			exit = 1;
-			error_msg = err_constr(-1, exit, args[0], shellname);
-			printf("%s\n", error_msg);
-			free(error_msg);
+			err_constr(-1, exit, args, shellname);
 			break;
 		case -2:
 			printf("is directory");
@@ -97,11 +105,5 @@ int handle(int flag, char *path, char **args, char *envp[], char *shellname)
 			break;
 		}
 	}
-
 	return (exit);
 }
-
-/*
-other things to do is fix mv, make more builtin funcs and echo $? outputs 0
-all the time, even after misusing a command, where it should be 1.
-*/
