@@ -19,6 +19,9 @@
  */
 int change_dir(char *dir)
 {
+    if (!dir)
+        dir = _getenv("HOME");
+    
     int ret = chdir(dir);
 
     if (ret == -1)
@@ -37,4 +40,14 @@ void exit_sh(int exit_c)
         exit_c = 0;
 
     exit(exit_c);
+}
+
+int print_env(void)
+{
+    int i;
+
+    for (i = 0; environ[i]; i++)
+        printf("%s\n", environ[i]);
+
+    return (0);
 }

@@ -22,6 +22,7 @@
  * -5: execve() failure
  * -6: waitpid() failure
  * -7: exit status negative or NaN
+ * -8: cd failure
  */
 
 /**
@@ -32,7 +33,7 @@
  */
 int input_flags(char *input, char *shellname)
 {
-	int i, handle_ret = 0, flag = 0;
+	int i, is_b, handle_ret = 0, flag = 0;
 	char *cmd, **args, *path, *envp[] = {_getenv("PATH"), NULL};
 
 	args = tokenizer(input, _strlen(input) + 1);
@@ -41,11 +42,12 @@ int input_flags(char *input, char *shellname)
 
 	cmd = args[0];
 
-	/* Before calling get_loc it should check if it is a built-in */
-	if (_strcmp(cmd, "cd") == 0 || _strcmp(cmd, "exit") == 0)
+	is_b = is_builtin(cmd);
+
+	if (is_b > 0)
 	{
 		flag = 2;
-		handle_ret = handle(flag, NULL, args, NULL, shellname);
+		handle_ret = handle(flag, NULL, args, NULL, shellname, is_b);
 	}
 	else
 	{
@@ -55,7 +57,7 @@ int input_flags(char *input, char *shellname)
 		else
 			flag = 1;
 
-		handle_ret = handle(flag, path, args, envp, shellname);
+		handle_ret = handle(flag, path, args, envp, shellname, 0);
 
 		free(path);
 	}
@@ -69,7 +71,7 @@ int input_flags(char *input, char *shellname)
 	return (handle_ret);
 }
 
-int handle(int flag, char *path, char **args, char *envp[], char *shellname)
+int handle(int flag, char *path, char **args, char *envp[], char *shellname, int i)
 {
 	int exit = 0;
 
@@ -81,7 +83,7 @@ int handle(int flag, char *path, char **args, char *envp[], char *shellname)
 			exit = cmd_exec(path, args, envp);
 			break;
 		case 2:
-			exit = builtin_handler(args, shellname);
+			exit = builtin_handler(args, shellname, i);
 			break;
 		default:
 			break;
