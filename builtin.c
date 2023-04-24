@@ -17,12 +17,24 @@
  * using the chdir() function.
  * @dir: A pointer to the directory to change.
  */
-void change_dir(char *dir)
+int change_dir(char *dir)
 {
     int ret = chdir(dir);
 
     if (ret == -1)
     {
         perror("chdir");
+        ret = 1;
     }
+    return (ret);
+}
+
+void exit_sh(int exit_c)
+{
+    int ret;
+
+    if (!exit_c)
+        exit_c = 0;
+
+    exit(exit_c);
 }
