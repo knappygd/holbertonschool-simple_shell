@@ -123,5 +123,5 @@ int atoi4exit(char *str)
 		result = (result * 10) + (*str - '0');
 		str++;
 	}
-	return result;
+	return (result);
 }
