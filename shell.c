@@ -15,6 +15,8 @@
  * main - Spawns a prompt to receive user input and performs the
  * required actions upon the input.
  * This is the shell entry function.
+ * @argc: (unused)
+ * @argv: Used for obtaining the shell name/path.
  *
  * Return: 0 if successful.
  */

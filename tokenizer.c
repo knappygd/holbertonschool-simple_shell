@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/**
+/*
  * This file contains the tokenizer() function, responsible for
  * splitting the input into tokens and storing them into an array.
  * It is useful for identifying the command and its arguments, if any,
