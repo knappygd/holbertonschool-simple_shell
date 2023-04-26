@@ -11,11 +11,11 @@
 /**
  * cmd_exec - Executes a command and any arguments by forking a process
  * and changing its execution.
- * @gtlc: The path of the command executable file or built-in function.
+ * @path: The path of the command executable file or built-in function.
  * @args: The command and any arguments along with it.
  * @envp: The environment variables.
  *
- * Return: 0 if successful.
+ * Return: The process exit code, or the flag status if failed.
  */
 int cmd_exec(char *path, char **args, char *envp[])
 {
