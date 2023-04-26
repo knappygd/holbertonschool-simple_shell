@@ -28,6 +28,7 @@
 /**
  * input_flags - A function that assigns flag values based on the input.
  * @input: The user input throung the shell prompt.
+ * @shellname: The argv[0] value.
  *
  * Return: The flag containing its value.
  */
@@ -71,7 +72,18 @@ int input_flags(char *input, char *shellname)
 	return (handle_ret);
 }
 
-int handle(int flag, char *path, char **args, char *envp[], char *shellname, int i)
+/**
+ * handle - Decides what to do based on the input_flags return.
+ * @flag: The flag value to work with.
+ * @path: The command path.
+ * @args: The command and its arguments, if any.
+ * @envp: The environ values.
+ * @shn: The argv[0] value.
+ * @i: The index of the built-in commands.
+ *
+ * Return: The exit value (0 if successful, 1 if not).
+*/
+int handle(int flag, char *path, char **args, char *envp[], char *shn, int i)
 {
 	int exit = 0;
 
@@ -83,7 +95,7 @@ int handle(int flag, char *path, char **args, char *envp[], char *shellname, int
 			exit = cmd_exec(path, args, envp);
 			break;
 		case 2:
-			exit = builtin_handler(args, shellname, i);
+			exit = builtin_handler(args, shn, i);
 			break;
 		default:
 			break;
@@ -95,7 +107,7 @@ int handle(int flag, char *path, char **args, char *envp[], char *shellname, int
 		{
 		case -1:
 			exit = 1;
-			err_constr(-1, exit, args, shellname);
+			err_constr(-1, exit, args, shn);
 			break;
 		case -2:
 			printf("is directory");
