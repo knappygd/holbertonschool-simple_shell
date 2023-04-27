@@ -17,7 +17,7 @@
 char *get_loc(char *command)
 {
 	int dirlen, cmdlen = _strlen(command);
-	char *path, *aux_path, *token, *filepath;
+	char *path, *aux_path, *token = NULL, *filepath;
 	struct stat buf;
 
 	path = _strdup(_getenv("PATH"));

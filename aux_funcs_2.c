@@ -38,6 +38,8 @@ char *_strdup(char *string)
 	for (i = 0; string[i]; i++)
 		duplicate[i] = string[i];
 
+	duplicate[i] = '\0';
+
 	return (duplicate);
 }
 

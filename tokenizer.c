@@ -28,10 +28,10 @@ char **tokenizer(char *input, int readchars)
 	if (!input)
 		return (NULL);
 
-	input_aux = malloc(sizeof(char) * readchars);
+	input_aux = malloc(sizeof(char) * (readchars + 1));
 	if (!input_aux)
 		return (NULL);
-	_memset(input_aux, 0, sizeof(char) * (readchars + 1));
+	memset(input_aux, 0, sizeof(char) * (readchars + 1));
 	_strcpy(input_aux, input);
 
 	token = strtok(input, delim);
@@ -41,7 +41,7 @@ char **tokenizer(char *input, int readchars)
 		token = strtok(NULL, delim);
 	}
 
-	token_arr = malloc(sizeof(char *) * tokens);
+	token_arr = malloc(sizeof(char *) * (tokens + 1));
 
 	token = strtok(input_aux, delim);
 
