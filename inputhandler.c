@@ -35,7 +35,10 @@
 int input_flags(char *input, char *shellname)
 {
 	int i, is_b, handle_ret = 0, flag = 0;
-	char *cmd, **args, *path, *envp[] = {_getenv("PATH"), NULL};
+	char *cmd, **args, *path, *envp[2];
+
+	envp[0] = _getenv("PATH");
+	envp[1] = NULL;
 
 	args = tokenizer(input, _strlen(input) + 1);
 	if (!args)
@@ -113,7 +116,7 @@ int handle(int flag, char *path, char **args, char *envp[], char *shn, int i)
 			printf("is directory");
 			break;
 		case -3:
-			("failed to tokenize");
+			printf("failed to tokenize");
 			break;
 		default:
 			break;

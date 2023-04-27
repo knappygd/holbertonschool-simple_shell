@@ -22,8 +22,7 @@
  */
 int main(int argc, char *argv[])
 {
-	char *prompt = "$ ", *input = NULL, *path, *cmd;
-	char *envp[] = {_getenv("PATH"), NULL}, **args;
+	char *prompt = "$ ", *input = NULL;
 	int ret = 0;
 	size_t rl, len = 0;
 
@@ -35,7 +34,7 @@ int main(int argc, char *argv[])
 			printf("%s", prompt);
 
 		rl = getline(&input, &len, stdin);
-		if (rl == -1)
+		if (rl == (size_t)-1)
 		{
 			if (isatty(STDIN_FILENO))
 				printf("\n");

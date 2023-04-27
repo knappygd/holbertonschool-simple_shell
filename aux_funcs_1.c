@@ -98,6 +98,8 @@ int _strncmp(char *str1, char *str2, int n)
 
 	if (index == n)
 		return (0);
+
+	return (0);
 }
 
 /**
