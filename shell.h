@@ -62,7 +62,7 @@ char *_strcpy(char *dest, char *src);
 /* Functions from aux_funcs_2.c */
 char *_strdup(char *string);
 void *_memset(void *s, int c, int n);
-int _strcspn(char *string, char c);
+void rev_string(char *s);
 int _strcmp(char *str1, char *str2);
 int atoi4exit(char *str);
 
