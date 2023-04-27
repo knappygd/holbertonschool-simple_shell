@@ -38,7 +38,7 @@ int change_dir(char *dir)
  * exit_sh - Exits the shell. If no argument is passed, it exits with 0.
  * Otherwise, it converts the argument to an int and exits with that number.
  * @exit_c: The exit code.
-*/
+ */
 void exit_sh(int exit_c)
 {
 	if (!exit_c)
@@ -51,7 +51,7 @@ void exit_sh(int exit_c)
  * print_env - Prints the contents of the environ variable in newlines.
  *
  * Return: 0
-*/
+ */
 int print_env(void)
 {
 	int i;

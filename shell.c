@@ -51,9 +51,7 @@ int main(int argc, char *argv[])
 			if (input[i] != ' ')
 			{
 				if (input[i] == 10)
-				{
 					break;
-				}
 				i = 0;
 				break;
 			}

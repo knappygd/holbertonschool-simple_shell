@@ -40,7 +40,7 @@ int input_flags(char *input, char *shellname)
 	envp[0] = _getenv("PATH");
 	envp[1] = NULL;
 
-	args = tokenizer(input, _strlen(input) + 1);
+	args = tokenizer(input);
 	if (!args)
 		flag = -3;
 
@@ -98,7 +98,7 @@ int input_flags(char *input, char *shellname)
  * @i: The index of the built-in commands.
  *
  * Return: The exit value (0 if successful, 1 if not).
-*/
+ */
 int handle(int flag, char *path, char **args, char *envp[], char *shn, int i)
 {
 	int exit = 0;

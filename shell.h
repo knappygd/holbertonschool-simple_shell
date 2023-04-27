@@ -30,7 +30,7 @@
  */
 char *get_loc(char *command);
 int cmd_exec(char *path, char **args, char *envp[]);
-char **tokenizer(char *input, int readchars);
+char **tokenizer(char *str);
 int err_constr(int flag, int exit, char **args, char *shellname);
 int builtin_handler(char **args, char *shellname, int i);
 int is_builtin(char *cmd);

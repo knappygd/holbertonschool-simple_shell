@@ -20,10 +20,10 @@
  *
  * Return: An array of pointers to the tokens.
  */
-char **tokenizer(char *input, int readchars)
+char **tokenizer(char *input)
 {
 	char *token, *input_aux, *delim = " \n", **token_arr;
-	int tokens = 0, index = 0;
+	int tokens = 0, index = 0, readchars = _strlen(input);
 
 	if (!input)
 		return (NULL);
