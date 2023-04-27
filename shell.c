@@ -23,7 +23,7 @@
 int main(int argc, char *argv[])
 {
 	char *prompt = "$ ", *input = NULL;
-	int ret = 0;
+	int ret = 0, in_len, i;
 	size_t rl, len = 0;
 
 	(void)argc;
@@ -41,9 +41,25 @@ int main(int argc, char *argv[])
 			break;
 		}
 
-		input[_strcspn(input, '\n')] = '\0';
+		if (*input == '\n')
+			continue;
 
-		if (*input == '\0')
+		in_len = _strlen(input);
+
+		for (i = 0; i < in_len; i++)
+		{
+			if (input[i] != ' ')
+			{
+				if (input[i] == 10)
+				{
+					break;
+				}
+				i = 0;
+				break;
+			}
+		}
+
+		if (i > 0)
 			continue;
 
 		ret = input_flags(input, argv[0]);
