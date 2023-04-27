@@ -5,7 +5,7 @@
  * This file is limited to having up to only 5 function definitions
  * in order for it to be Betty-compliant.
  * More functions implemented in other files may not be present here;
- * refer to aux_funcs_2.c instead.
+ * refer to aux_funcs_1.c instead.
  *
  * Functions:
  *  - _strdup: Copies a string and stores it in a newly allocated address.
@@ -61,21 +61,23 @@ void *_memset(void *s, int c, int n)
 }
 
 /**
- * _strcspn - Returns the length of a string up to character c.
- * @string: The string to count.
- * @c: The character for which count the string up to.
- *
- * Return: The length of the string up to c.
+ * rev_string - Reverses a string.
+ * @s: The string to be reversed.
  */
-int _strcspn(char *string, char c)
+void rev_string(char *s)
 {
-	int i;
+	int i = 0, len = 0;
+	char aux;
 
-	for (i = 0; string[i]; i++)
-		if (string[i] == c)
-			return (i);
+	while (s[i++])
+		len++;
 
-	return (-1);
+	for (i = len - 1; i >= len / 2; i--)
+	{
+		aux = s[i];
+		s[i] = s[len - i - 1];
+		s[len - i - 1] = aux;
+	}
 }
 
 /* === UNUSED === */
