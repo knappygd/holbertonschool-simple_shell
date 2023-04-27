@@ -22,7 +22,7 @@
  */
 char **tokenizer(char *input, int readchars)
 {
-	char *token, *token_aux, *input_aux, *delim = " \n", **token_arr;
+	char *token, *input_aux, *delim = " \n", **token_arr;
 	int tokens = 0, index = 0;
 
 	if (!input)

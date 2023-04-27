@@ -21,10 +21,10 @@
  */
 int change_dir(char *dir)
 {
+	int ret = chdir(dir);
+
 	if (!dir)
 		dir = _getenv("HOME");
-
-	int ret = chdir(dir);
 
 	if (ret == -1)
 	{
@@ -41,8 +41,6 @@ int change_dir(char *dir)
 */
 void exit_sh(int exit_c)
 {
-	int ret;
-
 	if (!exit_c)
 		exit_c = 0;
 
