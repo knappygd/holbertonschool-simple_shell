@@ -55,7 +55,21 @@ int input_flags(char *input, char *shellname)
 	}
 	else
 	{
+		/* for (i = 0; i < _strlen(cmd); i++)
+		{
+			if (cmd[i] == '/')
+			{
+				path = cmd;
+				i = 0;
+				break;
+			}
+		}
+
+		if (i > 0)
+			path = get_loc(cmd); */
+
 		path = get_loc(cmd);
+
 		if (!path)
 			flag = -1;
 		else
@@ -68,7 +82,7 @@ int input_flags(char *input, char *shellname)
 
 	for (i = 0; args[i]; i++)
 	{
-		free(args[i]);
+		free(args[i + 1]);
 	}
 	free(args);
 
