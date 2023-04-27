@@ -55,7 +55,7 @@ int input_flags(char *input, char *shellname)
 	}
 	else
 	{
-		/* for (i = 0; i < _strlen(cmd); i++)
+		for (i = 0; i < _strlen(cmd); i++)
 		{
 			if (cmd[i] == '/')
 			{
@@ -66,9 +66,7 @@ int input_flags(char *input, char *shellname)
 		}
 
 		if (i > 0)
-			path = get_loc(cmd); */
-
-		path = get_loc(cmd);
+			path = get_loc(cmd);
 
 		if (!path)
 			flag = -1;
