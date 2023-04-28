@@ -29,7 +29,7 @@
  *  - err_constr: errorhandler.c
  */
 char *get_loc(char *command);
-int cmd_exec(char *path, char **args, char *envp[]);
+int cmd_exec(char *path, char **args);
 char **tokenizer(char *str);
 int err_constr(int flag, int exit, char **args, char *shellname);
 int builtin_handler(char **args, char *shellname, int i);
@@ -41,7 +41,7 @@ int is_builtin(char *cmd);
  * The definitions can be found at inputhandler.c
  */
 int input_flags(char *input, char *shellname);
-int handle(int flag, char *path, char **args, char *envp[], char *shn, int i);
+int handle(int flag, char *path, char **args, char *shn, int i);
 
 /*
  * Built-in commands functions.
@@ -49,7 +49,7 @@ int handle(int flag, char *path, char **args, char *envp[], char *shn, int i);
  * The definitions of these functions can be found at builtin.c
  */
 int change_dir(char *dir);
-void exit_sh(int exit_c);
+int exit_sh(void);
 int print_env(void);
 
 /* Functions from aux_funcs_1.c */
