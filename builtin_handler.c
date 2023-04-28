@@ -33,16 +33,18 @@ int builtin_handler(char **args, char *shellname, int index)
 			err_constr(-8, exit, args, shellname);
 		break;
 	case 2:
+		if (args[1])
+		{
 			if (atoi4exit(args[1]) == -1)
 			{
 				exit = 1;
 				err_constr(-7, exit, args, shellname);
 			}
-
-			else
-			{
-				exit = exit_sh();
-			}
+		}
+		else
+		{
+			exit = exit_sh();
+		}
 		break;
 	case 3:
 		exit = print_env();
