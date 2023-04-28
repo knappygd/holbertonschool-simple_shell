@@ -17,7 +17,7 @@
  *
  * Return: The process exit code, or the flag status if failed.
  */
-int cmd_exec(char *path, char **args, char *envp[])
+int cmd_exec(char *path, char **args)
 {
 	pid_t pid = fork();
 	int status, flag = 0;
@@ -29,7 +29,7 @@ int cmd_exec(char *path, char **args, char *envp[])
 	}
 	else if (pid == 0)
 	{
-		if (execve(path, args, envp) == -1)
+		if (execve(path, args, environ) == -1)
 		{
 			perror("execve");
 			flag = -5;
