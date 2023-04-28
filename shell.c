@@ -61,6 +61,11 @@ int main(int argc, char *argv[])
 			continue;
 
 		ret = input_flags(input, argv[0]);
+		if (ret == -5)
+		{
+			free(input);
+			exit(0);
+		}
 	}
 	free(input);
 	return (ret);

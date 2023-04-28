@@ -39,12 +39,9 @@ int change_dir(char *dir)
  * Otherwise, it converts the argument to an int and exits with that number.
  * @exit_c: The exit code.
  */
-void exit_sh(int exit_c)
+int exit_sh(void)
 {
-	if (!exit_c)
-		exit_c = 0;
-
-	exit(exit_c);
+	return (-5);
 }
 
 /**

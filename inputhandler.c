@@ -35,10 +35,7 @@
 int input_flags(char *input, char *shellname)
 {
 	int i, is_b, handle_ret = 0, flag = 0;
-	char *cmd, **args, *path, *envp[2];
-
-	envp[0] = _getenv("PATH");
-	envp[1] = NULL;
+	char *cmd, **args, *path;
 
 	args = tokenizer(input);
 	if (!args)
@@ -51,7 +48,7 @@ int input_flags(char *input, char *shellname)
 	if (is_b > 0)
 	{
 		flag = 2;
-		handle_ret = handle(flag, NULL, args, NULL, shellname, is_b);
+		handle_ret = handle(flag, NULL, args, shellname, is_b);
 	}
 	else
 	{
@@ -74,7 +71,7 @@ int input_flags(char *input, char *shellname)
 		else
 			flag = 1;
 
-		handle_ret = handle(flag, path, args, envp, shellname, 0);
+		handle_ret = handle(flag, path, args, shellname, 0);
 
 		free(path);
 	}
@@ -99,7 +96,7 @@ int input_flags(char *input, char *shellname)
  *
  * Return: The exit value (0 if successful, 1 if not).
  */
-int handle(int flag, char *path, char **args, char *envp[], char *shn, int i)
+int handle(int flag, char *path, char **args, char *shn, int i)
 {
 	int exit = 0;
 
@@ -108,7 +105,7 @@ int handle(int flag, char *path, char **args, char *envp[], char *shn, int i)
 		switch (flag)
 		{
 		case 1:
-			exit = cmd_exec(path, args, envp);
+			exit = cmd_exec(path, args);
 			break;
 		case 2:
 			exit = builtin_handler(args, shn, i);
