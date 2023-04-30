@@ -65,20 +65,11 @@ $ env
 SHELL=/bin/bash
 TERM_PROGRAM_VERSION=1.77.3
 HOSTNAME=10a9634f2d2e
-LANGUAGE=en_US:enPWD=/root/dev/holbertonschool-simple_shell
-TZ=America/Los_Angeles
-VSCODE_GIT_ASKPASS_NODE=/root/.vscode-server/bin/704ed70d4fd1c6bd6342c436f1ede30d1cff4710/node
-HOME=/root
-LANG=en_US.UTF-8
-LC_ALL=C.UTF-8
-PATH=/root/.vscode-server/bin/704ed70d4fd1c6bd6342c436f1ede30d1cff4710/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-TERM_PROGRAM=vscode
-_=./shell
 ...
 ```
 - **exit**
 
-Exits the shell from whenever its running. If no exit code is passed as an argument, it will exit with 0. Else, if a positive integer is used, it will exit with that one.
+Exits the shell from whenever it is running, with the exit code 0.
 ```
 ~# ./shell
 $ exit 98
