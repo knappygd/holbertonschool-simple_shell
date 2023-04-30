@@ -52,7 +52,7 @@ int input_flags(char *input, char *shellname)
 	}
 	else
 	{
-		for (i = 0; i < _strlen(cmd); i++)
+		/* for (i = 0; i < _strlen(cmd); i++)
 		{
 			if (cmd[i] == '/')
 			{
@@ -62,9 +62,19 @@ int input_flags(char *input, char *shellname)
 				path = cmd;
 				break;
 			}
-		}
+		} */
 
-		path = get_loc(cmd);
+		for (i = 0; i < _strlen(cmd); i++)
+		{
+			if (cmd[i] == '/')
+			{
+				path = cmd;
+				break;
+			}
+
+			else
+				path = get_loc(cmd);
+		}
 
 		if (!path)
 			flag = -1;
@@ -73,7 +83,10 @@ int input_flags(char *input, char *shellname)
 
 		handle_ret = handle(flag, path, args, shellname, 0);
 
-		free(path);
+		if (path != cmd)
+			free(path);
+
+		/* free(path); */
 	}
 
 	for (i = 0; args[i]; i++)
