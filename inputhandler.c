@@ -119,7 +119,7 @@ int handle(int flag, char *path, char **args, char *shn, int i)
 		switch (flag)
 		{
 		case -1:
-			exit = 1;
+			exit = 127;
 			err_constr(-1, exit, args, shn);
 			break;
 		case -2:
