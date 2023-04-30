@@ -85,8 +85,8 @@ int input_flags(char *input, char *shellname)
 
 		if (path != cmd)
 			free(path);
-
-		/* free(path); */
+		else
+			free(path);
 	}
 
 	for (i = 0; args[i]; i++)
