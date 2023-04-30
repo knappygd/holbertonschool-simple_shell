@@ -21,14 +21,18 @@
  */
 int change_dir(char *dir)
 {
-	int ret = chdir(dir);
+	int ret;
 
 	if (!dir)
 		dir = _getenv("HOME");
 
+	if (_strcmp(dir, "-") == 0)
+		dir = _getenv("OLDPWD");
+
+	ret = chdir(dir);
+
 	if (ret == -1)
 	{
-		perror("chdir");
 		ret = 1;
 	}
 	return (ret);
