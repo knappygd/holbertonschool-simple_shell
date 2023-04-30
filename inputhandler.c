@@ -52,29 +52,10 @@ int input_flags(char *input, char *shellname)
 	}
 	else
 	{
-		/* for (i = 0; i < _strlen(cmd); i++)
-		{
-			if (cmd[i] == '/')
-			{
-				rev_string(cmd);
-				strtok(cmd, "/");
-				rev_string(cmd);
-				path = cmd;
-				break;
-			}
-		} */
-
-		for (i = 0; i < _strlen(cmd); i++)
-		{
-			if (cmd[i] == '/')
-			{
-				path = cmd;
-				break;
-			}
-
-			else
-				path = get_loc(cmd);
-		}
+		if (cmd[0] == '/')
+			path = cmd;
+		else
+			path = get_loc(cmd);
 
 		if (!path)
 			flag = -1;
@@ -83,10 +64,10 @@ int input_flags(char *input, char *shellname)
 
 		handle_ret = handle(flag, path, args, shellname, 0);
 
-		if (path != cmd)
+		if (cmd[0] != '/')
+		{
 			free(path);
-		else
-			free(path);
+		}
 	}
 
 	for (i = 0; args[i]; i++)
