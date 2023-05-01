@@ -68,5 +68,6 @@ int main(int argc, char *argv[])
 		}
 	}
 	free(input);
+	exit(ret);
 	return (ret);
 }

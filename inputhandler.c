@@ -126,5 +126,6 @@ int handle(int flag, char *path, char **args, char *shn, int i)
 			break;
 		}
 	}
+
 	return (exit);
 }

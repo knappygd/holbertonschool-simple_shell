@@ -44,7 +44,9 @@ int cmd_exec(char *path, char **args)
 		}
 
 		if (WIFEXITED(status))
+		{
 			return (WEXITSTATUS(status));
+		}
 	}
 	return (flag);
 }
