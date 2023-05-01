@@ -5,7 +5,7 @@ This is a command line interpreter for Unix-like systems, which provides a user 
 ## Usage
 
 ### How to compile it
-Clone the repository and and compile the `.c` files:
+Clone the repository and compile the `.c` files:
 ```
 gcc *.c -o shell
 ```
@@ -14,13 +14,6 @@ then, you can run it as follows:
 ./shell
 ```
 
-### Executing commands
-The shell accepts commands with arguments, including built-in commands, such as:
-```
- - cd
- - env
- - exit
-```
 ### Input modes
 The shell can work both interactively and non-interactively. This means that it accepts input reading from the prompt or through another non-terminal file descriptor.
 
@@ -76,6 +69,9 @@ $ exit 98
 ~# echo $?
 98
 ```
+
+## How it works
+The shell works by tokenizing the input, which means dividing it into strings separated by spaces, thus isolating the command and any arguments. Then, it checks if the command used is an executable or a built-in. If it is an executable, it locates the command by searching the PATH environment variable and then passes the required arguments to the `execve` function. Otherwise, if it is a built-in, it checks which one it is by searching through an index, and executes the required function. 
 
 ## Authors
 Emilio Damasco <emiliodamasco@gmail.com>
