@@ -52,7 +52,7 @@ int input_flags(char *input, char *shellname)
 	}
 	else
 	{
-		if (cmd[0] == '/')
+		if (cmd[0] == '/' || cmd[0] == '.')
 			path = cmd;
 		else
 			path = get_loc(cmd);
