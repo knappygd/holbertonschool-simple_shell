@@ -65,15 +65,11 @@ int input_flags(char *input, char *shellname)
 		handle_ret = handle(flag, path, args, shellname, 0);
 
 		if (cmd[0] != '/')
-		{
 			free(path);
-		}
 	}
 
 	for (i = 0; args[i]; i++)
-	{
 		free(args[i]);
-	}
 	free(args);
 
 	return (handle_ret);
@@ -84,7 +80,6 @@ int input_flags(char *input, char *shellname)
  * @flag: The flag value to work with.
  * @path: The command path.
  * @args: The command and its arguments, if any.
- * @envp: The environ values.
  * @shn: The argv[0] value.
  * @i: The index of the built-in commands.
  *

@@ -16,7 +16,6 @@
  * tokenizer - Generates tokens from an input and stores them
  * into an array of pointers to the tokens.
  * @input: The string to split.
- * @readchars: The number of characters that the input has.
  *
  * Return: An array of pointers to the tokens.
  */

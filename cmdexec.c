@@ -13,7 +13,6 @@
  * and changing its execution.
  * @path: The path of the command executable file or built-in function.
  * @args: The command and any arguments along with it.
- * @envp: The environment variables.
  *
  * Return: The process exit code, or the flag status if failed.
  */

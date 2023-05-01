@@ -23,9 +23,8 @@
 int main(int argc, char *argv[])
 {
 	char *prompt = "$ ", *input = NULL;
-	int ret = 0, in_len, i;
+	int ret = 0, i;
 	size_t rl, len = 0;
-
 	(void)argc;
 
 	while (1)
@@ -40,22 +39,10 @@ int main(int argc, char *argv[])
 				printf("\n");
 			break;
 		}
-
 		if (*input == '\n')
 			continue;
 
-		in_len = _strlen(input);
-
-		for (i = 0; i < in_len; i++)
-		{
-			if (input[i] != ' ')
-			{
-				if (input[i] == 10)
-					break;
-				i = 0;
-				break;
-			}
-		}
+		i = space_input(input);
 
 		if (i > 0)
 			continue;
@@ -70,4 +57,28 @@ int main(int argc, char *argv[])
 	free(input);
 	exit(ret);
 	return (ret);
+}
+
+/**
+ * space_input - Auxiliary function to check for space input.
+ * @input: The user input to check.
+ *
+ * Return: A flag indicating the input content.
+ */
+int space_input(char *input)
+{
+	int i, in_len = _strlen(input);
+
+	for (i = 0; i < in_len; i++)
+	{
+		if (input[i] != ' ')
+		{
+			if (input[i] == 10)
+				break;
+			i = 0;
+			break;
+		}
+	}
+
+	return (i);
 }

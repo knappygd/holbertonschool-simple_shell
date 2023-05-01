@@ -30,7 +30,7 @@
  */
 char *get_loc(char *command);
 int cmd_exec(char *path, char **args);
-char **tokenizer(char *str);
+char **tokenizer(char *input);
 int err_constr(int flag, int exit, char **args, char *shellname);
 int builtin_handler(char **args, char *shellname, int i);
 int is_builtin(char *cmd);
@@ -42,6 +42,7 @@ int is_builtin(char *cmd);
  */
 int input_flags(char *input, char *shellname);
 int handle(int flag, char *path, char **args, char *shn, int i);
+int space_input(char *input);
 
 /*
  * Built-in commands functions.

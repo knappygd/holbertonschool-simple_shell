@@ -41,7 +41,8 @@ int change_dir(char *dir)
 /**
  * exit_sh - Exits the shell. If no argument is passed, it exits with 0.
  * Otherwise, it converts the argument to an int and exits with that number.
- * @exit_c: The exit code.
+ *
+ * Return: A code to signal exit.
  */
 int exit_sh(void)
 {
